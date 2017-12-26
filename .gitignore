@@ -24,6 +24,12 @@ bld/
 [Oo]bj/
 [Ll]og/
 
+# Visual Studio Code Custom Folder
+.vscode/
+
+# ESLint Settings
+.eslintrc.js
+
 # Visual Studio 2015 cache/options directory
 .vs/
 # Uncomment if you have tasks that create the project's static files in wwwroot
@@ -72,8 +78,7 @@ artifacts/
 *.pidb
 *.svclog
 *.scc
-*..code-workspace
-
+*.code-workspace
 # Chutzpah Test files
 _Chutzpah*
 

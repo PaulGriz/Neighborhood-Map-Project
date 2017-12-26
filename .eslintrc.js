@@ -94,7 +94,7 @@ module.exports = {
         "line-comment-position": "error",
         "linebreak-style": [
             "error",
-            "windows"
+            "unix"
         ],
         "lines-around-comment": "error",
         "lines-around-directive": "error",
@@ -197,7 +197,6 @@ module.exports = {
         "no-shadow-restricted-names": "error",
         "no-spaced-func": "error",
         "no-sync": "error",
-        "no-tabs": "error",
         "no-template-curly-in-string": "error",
         "no-ternary": "off",
         "no-throw-literal": "error",
