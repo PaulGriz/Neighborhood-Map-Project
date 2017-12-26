@@ -94,7 +94,7 @@ module.exports = {
         "line-comment-position": "error",
         "linebreak-style": [
             "error",
-            "unix"
+            "windows"
         ],
         "lines-around-comment": "error",
         "lines-around-directive": "error",
@@ -228,6 +228,15 @@ module.exports = {
         "nonblock-statement-body-position": [
             "error",
             "any"
+        ],
+        "no-console": [
+            "error", { 
+                allow: [
+                    "warn", 
+                    "error",
+                    "log"
+                ] 
+            }
         ],
         "object-curly-newline": "off",
         "object-curly-spacing": "error",
