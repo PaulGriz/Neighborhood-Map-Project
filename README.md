@@ -5,7 +5,7 @@
 > Project Submission for Udacity's [Front End Web Developer nanodegree program](https://udacity.com/course/front-end-web-developer-nanodegree--nd001/) 
 > by: Paul Griz
 
-![Screen Shot](img/PreviewScreenShot.png)
+![Screen Shot](https://github.com/PgTower/Neighborhood-Map-Project/blob/master/img/PreviewScreenShot.PNG)
 
 ---
 
