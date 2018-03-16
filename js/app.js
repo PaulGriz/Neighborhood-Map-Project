@@ -258,7 +258,7 @@ var pointOfInterest = function (locationData) {
         self.marker.setAnimation(google.maps.Animation.BOUNCE);
         setTimeout(function () {
             self.marker.setAnimation(null);
-        }, 950);
+        }, 650);
     });
 
     // Credit: Udacity's, "Understanding API Services" Lessons
