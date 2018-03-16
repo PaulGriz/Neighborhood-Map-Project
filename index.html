@@ -20,11 +20,10 @@
                     <span class="search-box-heading">Search:</span>
                 </div>
                 <div class="search" id="search">
-                    <input class="search-box" id="search-box" data-bind="textInput: searchTerm, valueUpdate: 'afterkeydown'" placeholder="Enter location name..."
-                    />
+                    <input class="search-box" id="search-box" data-bind="textInput: searchTerm, valueUpdate: 'afterkeydown'" placeholder="Enter location name..."/>
                 </div>
                 <div class="marker-list" id="app">
-                    <ul class="list-group" id="results" data-bind="foreach: poiList">
+                    <ul class="list-group" id="searchResult" data-bind="foreach: sidebarSearchList">
                         <li class="list-group-item" id="place" data-bind="text: name, click: bounce"></li>
                     </ul>
                 </div>
@@ -37,12 +36,8 @@
     <script src='js/lib/jquery-3.3.1.min.js'></script>
     <script src='js/side_bar.js'></script>
     <script src='js/app.js'></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlT6GxphGI6Gk9YRM4Yjlfl5_4c_u4Fyw&callback=startApp&libraries=places"
-        onerror="errorHandling()"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlT6GxphGI6Gk9YRM4Yjlfl5_4c_u4Fyw&callback=startApp&libraries=places" onerror="errorHandling()"></script>
 </body>
 
 </html>

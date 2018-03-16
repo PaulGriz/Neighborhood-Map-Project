@@ -34,7 +34,7 @@ body {
 .app-grid {
     display: grid;
     grid-template-areas: 'G1 G3' 'G2 G2';
-    grid-template-columns: 40% 60%;
+    grid-template-columns: 35% 65%;
     grid-template-rows: 4.3vh;
     grid-gap: 0px;
     background-color: rgba(152, 189, 236, 0.53);
@@ -75,18 +75,19 @@ body {
     box-shadow: inset 1px 0px 1px 1px #d5e323;
 }
 
-@media (min-width:1100px) {
-    .app-grid {
-        grid-template-columns: 40% 60%;
-    }
-}
 
-@media (min-width:1150px) {
+@media (min-width:1110px) {
     .app-grid {
-        grid-template-columns: 400px 1fr;
+        grid-template-columns: 365px 1fr;
     }
     .list-group-item {
         font-size: 14px;
+    }
+}
+
+@media (max-width:865px) {
+    .app-grid {
+        grid-template-columns: 35% 65%;
     }
 }
 
@@ -96,11 +97,13 @@ body {
     }
     .list-group-item {
         font-size: 12px;
+    }.app-grid {
+        grid-template-columns: 40% 60%;
     }
 }
 
 @media (max-width:655px) {
     .app-grid {
-        grid-template-columns: 50% 50%;
+        grid-template-columns: 45% 55%;
     }
 }

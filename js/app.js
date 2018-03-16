@@ -172,7 +172,7 @@ var pointOfInterest = function (locationData) {
     var highlightedIconColor = makeMarkerIcon('FFFF24');
 
     // Used in View to search and filter locations by name
-    this.visible_bool = ko.observable(true);
+    this.visibleBool = ko.observable(true);
     this.name = locationData.name;
 
     // For Google Maps API
@@ -315,16 +315,14 @@ function AppViewModel() {
                 var poiLowerCase = poiData.name.toLowerCase();
                 var searchResult = (poiLowerCase.search(userInput) >= 0);
                 // Only displays POI's that match the searchResult's
-                poiData.visible_bool(searchResult);
+                poiData.visibleBool(searchResult);
                 poiData.marker.setVisible(searchResult);
-
-
                 return searchResult;
             });
-            // If no input from user, display all POI's
+        // If no input from user, display all POI's
         } else {
             self.poiList().forEach(function (poiData) {
-                poiData.visible_bool(true);
+                poiData.visibleBool(true);
                 poiData.marker.setVisible(true);
             });
             return self.poiList();
