@@ -1,6 +1,6 @@
 'use strict';
 
-// Global Variables
+// Globals
 var clientID;
 var clientSecret;
 var google_map;
@@ -17,13 +17,16 @@ function formatPhoneNumber(s) {
 /* ================================================================
                           Map Styling
   =================================================================
-  Map Styling and markMarkerIcon Function Credit:
+  Credit for Marker Function and Map Styling:
   Udacity's, "Understanding API Services" Lessons
  ==================================================================*/
 
-// This function takes in a COLOR, and then creates a new marker
-// icon of that color. The icon will be 21 px wide by 34 high, have an origin
-// of 0, 0 and be anchored at 10, 34).
+/**
+ * Takes in a Hex Color Code
+ * Returns a formatted Google Map Marker Icon
+ * @param {any} markerColor 
+ * @returns Google Map Marker Icon
+ */
 function makeMarkerIcon(markerColor) {
     var markerImage = new google.maps.MarkerImage(
         'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|' + markerColor +
@@ -155,6 +158,12 @@ var starter_locations = [{
    IMPORTANT NOTE: POI = Point of Interest 
    Used through the script for abbreviation 
    ================================================================*/
+/**
+ * Accepts a Point of Interest's Name, Lat, and Long
+ * Calls Foursquare API for  POI's Website Url, Phone, and Address
+ * Generates a Google Map Marker with data from Input and Foursquare
+ * @param {any} location_data 
+ */
 var point_of_interest = function (location_data) {
     var self = this;
 
@@ -179,7 +188,9 @@ var point_of_interest = function (location_data) {
     this.phone_number = "";
     // Concatenated the query parameter with POI's name 
     this.query_string = '&query=' + String(this.name);
-    var foursquare_api_url = this.foursquare_base_url + this.lat + ',' + this.long + '&client_id=' + clientID + '&client_secret=' + clientSecret + '&v=20180315' + this.query_string;
+    var foursquare_api_url = (this.foursquare_base_url + this.lat + ',' + this.long +
+        '&client_id=' + clientID + '&client_secret=' +
+        clientSecret + '&v=20180315' + this.query_string);
 
     /* Returns the point_of_interest's (POI):
     url, street address, city, 
@@ -238,7 +249,7 @@ var point_of_interest = function (location_data) {
             '<div class="content">' +
             '<a href="tel:' + self.phone_number + '">' + self.phone_number + '</a></div>' +
             '</div>')
-    
+
         self.info_window.open(google_map, this);
 
         // Using Google's BOUNCE Animation 
@@ -304,12 +315,16 @@ function AppViewModel() {
                 var search_result = (poi_lowercase.search(user_input) >= 0);
                 // Only displays POI's that match the search_result's
                 poi_data.visible_bool(search_result);
+                poi_data.marker.setVisible(search_result);
+
+
                 return search_result;
             });
-        // If no input from user, display all POI's
+            // If no input from user, display all POI's
         } else {
             self.poi_list().forEach(function (poi_data) {
                 poi_data.visible_bool(true);
+                poi_data.marker.setVisible(true);
             });
             return self.poi_list();
         }
