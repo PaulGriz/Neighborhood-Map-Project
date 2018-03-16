@@ -16,7 +16,6 @@
     text-decoration: none;
     font-size: 25px;
     color: #818181;
-    
     transition: 0.3s;
 }
 
@@ -37,7 +36,6 @@
     .sidenav {
         padding-top: 15px;
     }
-
     .sidenav a {
         font-size: 18px;
     }
@@ -49,7 +47,7 @@
 }
 
 @media (max-width:700px) {
-    .search-box { 
+    .search-box {
         font-size: 12px;
     }
     .list-group-item {

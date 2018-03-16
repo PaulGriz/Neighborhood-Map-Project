@@ -30,17 +30,17 @@ body {
     grid-area: G2;
     height: 96vh;
 }
+
 .app-grid {
     display: grid;
-    grid-template-areas: 'G1 G3'
-        'G2 G2';
+    grid-template-areas: 'G1 G3' 'G2 G2';
     grid-template-columns: 40% 60%;
     grid-template-rows: 4.3vh;
     grid-gap: 0px;
     background-color: rgba(152, 189, 236, 0.53);
 }
 
-.grid-container > div {
+.grid-container>div {
     background-color: rgba(255, 255, 255, 0.8);
     text-align: center;
 }
@@ -89,14 +89,16 @@ body {
         font-size: 14px;
     }
 }
+
 @media (max-width:700px) {
-    .search-box { 
+    .search-box {
         font-size: 12px;
     }
     .list-group-item {
         font-size: 12px;
     }
 }
+
 @media (max-width:655px) {
     .app-grid {
         grid-template-columns: 50% 50%;
