@@ -116,6 +116,12 @@ var mapCustomStyle = [{
     ]
 }];
 
+const googleMapSettings = ({
+    lat: 32.1533973,
+    lng: -80.7606692,
+    zoom: 14,
+    styles: mapCustomStyle
+});
 
 /* ================================================================
                     Point of Interest's Data
@@ -256,7 +262,7 @@ var pointOfInterest = function (locationData) {
         self.marker.setAnimation(google.maps.Animation.BOUNCE);
         setTimeout(function () {
             self.marker.setAnimation(null);
-        }, 650);
+        }, 700);
     });
 
     // Credit: Udacity's, "Understanding API Services" Lessons
@@ -289,12 +295,12 @@ function AppViewModel() {
 
     // Initiates Google Map with styles defined in the beginning of the script
     googleMap = new google.maps.Map(document.getElementById('map'), {
-        center: {
-            lat: 32.1533973,
-            lng: -80.7606692
+        center: { 
+            lat: googleMapSettings.lat, 
+            lng: googleMapSettings.lng 
         },
-        zoom: 14.25,
-        styles: mapCustomStyle
+        zoom: googleMapSettings.zoom,
+        styles: googleMapSettings.styles
     });
 
     // Passes locations through the pointOfInterest model
