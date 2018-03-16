@@ -21,7 +21,7 @@
                         <input class="search-box" id="search-box" data-bind="textInput: searchTerm, valueUpdate: 'afterkeydown'" placeholder="Enter location name..." />
                     </div>
                     <div class="marker-list" id="app">
-                        <ul class="list-group" id="results" data-bind="foreach: sidebar_search_list">
+                        <ul class="list-group" id="results" data-bind="foreach: poiList">
                             <li class="list-group-item" id="place" data-bind="text: name, click: bounce"></li>
                         </ul>
                     </div>

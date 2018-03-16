@@ -3,7 +3,7 @@
 // Globals
 var clientID;
 var clientSecret;
-var google_map;
+var googleMap;
 
 
 // Function Credit: maerics on StackOverflow
@@ -38,7 +38,7 @@ function makeMarkerIcon(markerColor) {
     return markerImage;
 }
 
-var map_styles = [{
+var mapCustomStyle = [{
     featureType: 'water',
     stylers: [{
         color: '#19a0d8'
@@ -125,7 +125,7 @@ var map_styles = [{
    To add more additional map locations, just append 
    the new place with it's name, lat, and long  
    ================================================================*/
-var starter_locations = [{
+var starterLocations = [{
         name: 'Its Greek to Me',
         lat: 32.144868,
         long: -80.75111
@@ -162,59 +162,59 @@ var starter_locations = [{
  * Accepts a Point of Interest's Name, Lat, and Long
  * Calls Foursquare API for  POI's Website Url, Phone, and Address
  * Generates a Google Map Marker with data from Input and Foursquare
- * @param {any} location_data 
+ * @param {any} locationData 
  */
-var point_of_interest = function (location_data) {
+var pointOfInterest = function (locationData) {
     var self = this;
 
     // Used to change color of marker 
-    var default_icon_color = makeMarkerIcon('0091ff');
-    var highlighted_icon_color = makeMarkerIcon('FFFF24');
+    var defaultIconColor = makeMarkerIcon('0091ff');
+    var highlightedIconColor = makeMarkerIcon('FFFF24');
 
     // Used in View to search and filter locations by name
     this.visible_bool = ko.observable(true);
-    this.name = location_data.name;
+    this.name = locationData.name;
 
     // For Google Maps API
-    this.lat = location_data.lat;
-    this.long = location_data.long;
+    this.lat = locationData.lat;
+    this.long = locationData.long;
     // Data From Foursquare
     // Needed for Marker's Info Window 
-    this.foursquare_base_url = 'https://api.foursquare.com/v2/venues/search?ll=';
+    this.foursquareBaseUrl = 'https://api.foursquare.com/v2/venues/search?ll=';
     // POI's Url 
-    this.poi_url = "";
-    this.street_address = "";
-    this.city_state_zip = "";
-    this.phone_number = "";
+    this.poiWebsite = "";
+    this.poiStreetAddress = "";
+    this.poiCityStateZipCode = "";
+    this.poiPhoneNumber = "";
     // Concatenated the query parameter with POI's name 
-    this.query_string = '&query=' + String(this.name);
-    var foursquare_api_url = (this.foursquare_base_url + this.lat + ',' + this.long +
-        '&client_id=' + clientID + '&client_secret=' +
-        clientSecret + '&v=20180315' + this.query_string);
+    this.queryString = '&query=' + String(this.name);
+    var foursquareApiUrl = (this.foursquareBaseUrl + this.lat + ',' +
+        this.long + '&client_id=' + clientID + '&client_secret=' +
+        clientSecret + '&v=20180315' + this.queryString);
 
-    /* Returns the point_of_interest's (POI):
+    /* Returns the pointOfInterest's (POI):
     url, street address, city, 
     state, zip code, and phone number
     Data is placed into the Google Marker's Info Window */
-    $.getJSON(foursquare_api_url).done(function (data) {
-        var foursquare_data = data.response.venues[0];
-        self.poi_url = foursquare_data.url;
+    $.getJSON(foursquareApiUrl).done(function (data) {
+        var foursquareData = data.response.venues[0];
+        self.poiWebsite = foursquareData.url;
         // If missing data is returned from Foursquare API
-        if (typeof self.poi_url === 'undefined') {
-            self.poi_url = "";
+        if (typeof self.poiWebsite === 'undefined') {
+            self.poiWebsite = "";
         }
         // Gets POI's phone number
-        self.phone_number = foursquare_data.contact.phone;
+        self.poiPhoneNumber = foursquareData.contact.phone;
         // Formats the phone with formatPhoneNumber function defined in the beginning of the script
-        if (typeof self.phone_number === 'undefined') {
-            self.phone_number = "";
+        if (typeof self.poiPhoneNumber === 'undefined') {
+            self.poiPhoneNumber = "";
         } else {
-            self.phone_number = formatPhoneNumber(self.phone_number);
+            self.poiPhoneNumber = formatPhoneNumber(self.poiPhoneNumber);
         }
         // Gets the Street Address
-        self.street_address = foursquare_data.location.formattedAddress[0];
+        self.poiStreetAddress = foursquareData.location.formattedAddress[0];
         // Gets the POI's City, State, and Zip Code
-        self.city_state_zip = foursquare_data.location.formattedAddress[1];
+        self.poiCityStateZipCode = foursquareData.location.formattedAddress[1];
 
         // If the Foursquare API call fails
     }).fail(function () {
@@ -223,34 +223,35 @@ var point_of_interest = function (location_data) {
 
     // Adds new Google Marker
     this.marker = new google.maps.Marker({
-        position: new google.maps.LatLng(location_data.lat, location_data.long),
-        title: location_data.name,
-        map: google_map,
-        icon: default_icon_color,
+        position: new google.maps.LatLng(locationData.lat, locationData.long),
+        title: locationData.name,
+        map: googleMap,
+        icon: defaultIconColor,
         animation: google.maps.Animation.DROP
     });
 
 
     // Declaring New InfoWindow Object
     // The content is added to InfoWindow when clicked
-    this.info_window = new google.maps.InfoWindow();
+    // Added poi as a prefix to avoid confusion with Google's InfoWindow Object
+    this.poiInfoWindow = new google.maps.InfoWindow();
 
     // If a marker is clicked
     this.marker.addListener('click', function () {
-        self.info_window.setContent(
+        self.poiInfoWindow.setContent(
             '<div class="info-window-content">' +
             '<div class="title">' +
-            '<b>' + location_data.name + '</b>' +
+            '<b>' + locationData.name + '</b>' +
             '</div>' +
             '<div class="content">' +
-            '<a href="' + self.poi_url + '">' + self.poi_url + '</a></div>' +
-            '<div class="content">' + self.street_address + "</div>" +
-            '<div class="content">' + self.city_state_zip + "</div>" +
+            '<a href="' + self.poiWebsite + '">' + self.poiWebsite + '</a></div>' +
+            '<div class="content">' + self.poiStreetAddress + "</div>" +
+            '<div class="content">' + self.poiCityStateZipCode + "</div>" +
             '<div class="content">' +
-            '<a href="tel:' + self.phone_number + '">' + self.phone_number + '</a></div>' +
+            '<a href="tel:' + self.poiPhoneNumber + '">' + self.poiPhoneNumber + '</a></div>' +
             '</div>')
 
-        self.info_window.open(google_map, this);
+        self.poiInfoWindow.open(googleMap, this);
 
         // Using Google's BOUNCE Animation 
         // Timeout in Milliseconds 
@@ -262,10 +263,10 @@ var point_of_interest = function (location_data) {
 
     // Credit: Udacity's, "Understanding API Services" Lessons
     this.marker.addListener('mouseover', function () {
-        this.setIcon(highlighted_icon_color);
+        this.setIcon(highlightedIconColor);
     });
     this.marker.addListener('mouseout', function () {
-        this.setIcon(default_icon_color);
+        this.setIcon(defaultIconColor);
     });
     this.bounce = function (place) {
         google.maps.event.trigger(self.marker, 'click');
@@ -286,54 +287,54 @@ function AppViewModel() {
     // For the Side Bar search box
     this.searchTerm = ko.observable("");
     // POI = Point of Interest 
-    this.poi_list = ko.observableArray([]);
+    this.poiList = ko.observableArray([]);
 
     // Initiates Google Map with styles defined in the beginning of the script
-    google_map = new google.maps.Map(document.getElementById('map'), {
+    googleMap = new google.maps.Map(document.getElementById('map'), {
         center: {
             lat: 32.1533973,
             lng: -80.7606692
         },
         zoom: 14.25,
-        styles: map_styles
+        styles: mapCustomStyle
     });
 
-    // Passes locations through the point_of_interest model
-    starter_locations.forEach(function (poi_data) {
-        self.poi_list.push(new point_of_interest(poi_data));
+    // Passes locations through the pointOfInterest model
+    starterLocations.forEach(function (poiData) {
+        self.poiList.push(new pointOfInterest(poiData));
     });
 
     // Filtered search using Knockout
-    this.sidebar_search_list = ko.computed(function () {
+    this.sidebarSearchList = ko.computed(function () {
         // searchTerm() = the input from the Side Bar text box
-        var user_input = self.searchTerm().toLowerCase();
+        var userInput = self.searchTerm().toLowerCase();
         // For every key entered, the list is searched using Knockout's 
         // "valueUpdate: afterkeydown" and "arrayFilter" functions
-        if (user_input) {
-            return ko.utils.arrayFilter(self.poi_list(), function (poi_data) {
-                var poi_lowercase = poi_data.name.toLowerCase();
-                var search_result = (poi_lowercase.search(user_input) >= 0);
-                // Only displays POI's that match the search_result's
-                poi_data.visible_bool(search_result);
-                poi_data.marker.setVisible(search_result);
+        if (userInput) {
+            return ko.utils.arrayFilter(self.poiList(), function (poiData) {
+                var poiLowerCase = poiData.name.toLowerCase();
+                var searchResult = (poiLowerCase.search(userInput) >= 0);
+                // Only displays POI's that match the searchResult's
+                poiData.visible_bool(searchResult);
+                poiData.marker.setVisible(searchResult);
 
 
-                return search_result;
+                return searchResult;
             });
             // If no input from user, display all POI's
         } else {
-            self.poi_list().forEach(function (poi_data) {
-                poi_data.visible_bool(true);
-                poi_data.marker.setVisible(true);
+            self.poiList().forEach(function (poiData) {
+                poiData.visible_bool(true);
+                poiData.marker.setVisible(true);
             });
-            return self.poi_list();
+            return self.poiList();
         }
     }, self);
 
     // Closes all InfoWindows when the map is clicked
-    google.maps.event.addListener(google_map, 'click', function () {
-        self.poi_list().forEach(function (poi_data) {
-            poi_data.info_window.close();
+    google.maps.event.addListener(googleMap, 'click', function () {
+        self.poiList().forEach(function (poiData) {
+            poiData.poiInfoWindow.close();
         });
     });
 }
@@ -343,5 +344,6 @@ function startApp() {
 }
 
 function errorHandling() {
-    alert("Google Maps has failed to load. Please check your internet connection and try again.");
+    alert('Google Maps has failed to load.' +
+    'Please check your internet connection and try again.');
 }
