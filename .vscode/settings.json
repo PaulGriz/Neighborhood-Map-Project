@@ -1,6 +1,0 @@
-{
-    "editor.renderWhitespace": "boundary",
-    "editor.acceptSuggestionOnCommitCharacter": true,
-    "editor.folding": true,
-    "editor.matchBrackets": true
-}

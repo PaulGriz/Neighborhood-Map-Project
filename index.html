@@ -1,35 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Your Moving Companion</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-
-    <form id="form-container" class="form-container">
-        <label for="street">Street: </label><input type="text" id="street" value="">
-        <label for="city">City: </label><input type="text" id="city" value="">
-        <button id="submit-btn">Submit</button>
-    </form>
-
-    <hr>
-
-    <h2 id="greeting" class="greeting">Where do you want to live?</h2>
-
-
-    <div class="wikipedia-container">
-        <h3 id="wikipedia-header">Relevant Wikipedia Links</h3>
-        <ul id="wikipedia-links">Type in an address above and find relevant Wikipedia articles here!</ul>
-    </div>
-
-
-    <div class="nytimes-container">
-        <h3 id="nytimes-header">New York Times Articles</h3>
-        <ul id="nytimes-articles" class="article-list">What's going on in your new city? Enter an address and hit submit and the NY Times will tell you here!</ul>
-    </div>
-
-    <script src="js/libs/jquery.min.js"></script>
-    <script src="js/script.js"></script>
-</body>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Hilton Head Island</title>
+        <link rel="stylesheet" href="css/bootstrap/bootstrap.css">
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/side_bar.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <div class="app-grid">
+            <div class="blank"></div>
+            <div class="mobile-sidebar">
+                <div id="side-bar" class="sidenav">
+                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav();hideSideBarButton();">&times;</a>
+                    <div class="search-heading">
+                        <span class="search-box-heading">Search:</span>
+                    </div>
+                    <div class="search" id="search">
+                        <input class="search-box" id="search-box" data-bind="textInput: searchTerm, valueUpdate: 'afterkeydown'" placeholder="Enter location name..." />
+                    </div>
+                    <div class="marker-list" id="app">
+                        <ul class="list-group" id="results" data-bind="foreach: sidebar_search_list">
+                            <li class="list-group-item" id="place" data-bind="text: name, click: bounce"></li>
+                        </ul>
+                    </div>
+                </div>
+                <span class="side-bar-button" id="toggle-button"onclick="openNav();hideSideBarButton();">&#9776; Locations</span>
+            </div>
+            <div class="google-map" id="map">Error: Loading Google Maps failed. Please Refresh Page</div>
+        </div>
+        <script src='js/lib/knockout-3.4.2.js'></script>
+        <script src='js/lib/jquery-3.3.1.min.js'></script>
+        <script src='js/side_bar.js'></script>
+        <script src='js/app.js'></script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlT6GxphGI6Gk9YRM4Yjlfl5_4c_u4Fyw&callback=startApp&libraries=places" onerror="errorHandling()"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    </body>
 </html>

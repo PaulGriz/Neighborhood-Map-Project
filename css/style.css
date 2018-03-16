@@ -1,45 +1,104 @@
-* {box-sizing:border-box;}
-body {background-color: #CCC;}
-
-.bgimg {
-    position:fixed;
-    top: 0;
-    left: 0;
-    width:100%;
-    z-index:-1;
-    opacity:1;
+body {
+    margin: 0;
+    font-family: Verdana, Geneva, sans-serif;
 }
 
-.greeting {
-    color:black;
-    text-shadow: 1px 1px 3px rgba(255,255,255, .5);
+.search-heading {
+    font-weight: bold;
+    margin-top: 15px;
+    text-align: left;
+    display: flex;
+}
+
+.search {
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+.marker-list {
+    grid-area: G1;
     text-align: center;
 }
 
-.wikipedia-container {
-    float:right;
-    width:290px;
-    padding:10px;
-    margin-right: 10px;
-    background-color: rgba(255,255,255,0.7);
+.blank {
+    grid-area: G3;
+    width: 100%;
+    text-align: center;
 }
 
-.nytimes-container {
-    padding: 10px;
-    margin-right:300px;
-    background-color: rgba(255,255,255,0.7);
+.google-map {
+    grid-area: G2;
+    height: 96vh;
+}
+.app-grid {
+    display: grid;
+    grid-template-areas: 'G1 G3'
+        'G2 G2';
+    grid-template-columns: 40% 60%;
+    grid-template-rows: 4.3vh;
+    grid-gap: 0px;
+    background-color: rgba(152, 189, 236, 0.53);
 }
 
-.article-list {
-    margin: 0;
-    padding: 0;
+.grid-container > div {
+    background-color: rgba(255, 255, 255, 0.8);
+    text-align: center;
 }
 
-.article {
-    list-style-type: none;
-    padding:10px;
-    border-top: 1px solid #CCC;
+.search-box-heading {
+    text-align: left;
+    font-size: 20px;
+    line-height: 22px;
+    color: #ffffff;
+    border-top: 3px solid rgba(255, 255, 255, 0.93);
+    border-bottom: 3px solid rgba(255, 255, 255, 0.93);
+    padding: 15px 5px;
+    width: 100%;
 }
-.article:first-child {
-    border-top:none;
+
+.search-box {
+    min-height: 25px;
+    width: 96%;
+    font-size: 20px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.map {
+    background-color: #fff;
+    text-align: center;
+    min-height: 1vh;
+}
+
+.search-box:hover {
+    background-color: #fdfdfd;
+    box-shadow: inset 1px 0px 1px 1px #d5e323;
+}
+
+@media (min-width:1100px) {
+    .app-grid {
+        grid-template-columns: 40% 60%;
+    }
+}
+
+@media (min-width:1150px) {
+    .app-grid {
+        grid-template-columns: 400px 1fr;
+    }
+    .list-group-item {
+        font-size: 14px;
+    }
+}
+@media (max-width:700px) {
+    .search-box { 
+        font-size: 12px;
+    }
+    .list-group-item {
+        font-size: 12px;
+    }
+}
+@media (max-width:655px) {
+    .app-grid {
+        grid-template-columns: 50% 50%;
+    }
 }
