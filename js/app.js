@@ -1,5 +1,3 @@
-'use strict';
-
 // Globals
 var clientID;
 var clientSecret;
@@ -249,7 +247,7 @@ var pointOfInterest = function (locationData) {
             '<div class="content">' + self.poiCityStateZipCode + "</div>" +
             '<div class="content">' +
             '<a href="tel:' + self.poiPhoneNumber + '">' + self.poiPhoneNumber + '</a></div>' +
-            '</div>')
+            '</div>');
 
         self.poiInfoWindow.open(googleMap, this);
 
